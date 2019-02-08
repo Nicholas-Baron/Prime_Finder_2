@@ -7,7 +7,7 @@
 
 Settings parse_settings(int arg_count, const char** args){
 
-	using std::cout; 
+	using std::cout; using std::endl;
 	long long range_end = 0;
 	bool debug = false;
 
@@ -23,13 +23,13 @@ Settings parse_settings(int arg_count, const char** args){
 		}else if(option[0] == '-'){
 			if(strcmp(option, "-v") == 0 || strcmp(option, "-d") == 0){
 				debug = true;
+			} else {
+				cout << "Option " << option << " is not supported!" << endl;
 			}	
-			
 		}
 	}
 	
 	if(debug){
-		using std::endl;
 		
 		for(int i = 0; i < arg_count; i++){
 			cout << std::to_string(i) << ':' << args[i] << endl;

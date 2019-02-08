@@ -1,8 +1,8 @@
 #ifndef _PRIME_
 #define _PRIME_
 
-#include <iostream>
-#include <utility>
+#include <ostream>	// ostream
+#include <utility>	// pair
 
 using prime_t = unsigned long long;
 
