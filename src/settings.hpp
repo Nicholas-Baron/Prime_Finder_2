@@ -8,7 +8,10 @@
 
 struct Settings{
 	prime_t range_end;
-	bool debug_mode = false, single_mode = false;
+	bool debug_mode = false, 
+	single_mode = false, 
+	large_queue = false,
+	only_primes = false;
 };
 
 namespace std{
@@ -24,8 +27,15 @@ namespace std{
 			stream << " | Debug";
 		}
 		if(rhs.single_mode){
-			stream << " | Single ";
+			stream << " | Single";
 		}
+		if(rhs.large_queue){
+			stream << " | Show Max Queue Size";
+		}
+		if(rhs.only_primes){
+			stream << " | Print Only Primes";
+		}
+		
 		stream << " )";
 		return stream.str();
 	}
