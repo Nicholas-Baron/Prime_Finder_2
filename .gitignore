@@ -32,3 +32,9 @@
 *.app
 
 bin/
+
+\.clang-tidy
+
+lint\.sh
+
+lint\.txt
