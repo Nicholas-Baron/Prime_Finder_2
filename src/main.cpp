@@ -2,8 +2,12 @@
 #include "settings.hpp"
 #include "starter.hpp"
 
-#include <iostream>	// cout
+#include <atomic>
+#include <chrono>
+#include <future>
+#include <iostream>		// cout
 #include <queue>
+#include <stdexcept>	// exception
 #include <thread>
 
 int main(int arg_count, const char** args){
@@ -16,22 +20,45 @@ int main(int arg_count, const char** args){
 		cout << settings << endl;
 	}
 	
-	queue<primality_t> prime_queue;
+	queue<future<primality_t>> prime_queue;
+	atomic<bool> running(true);
 	
 	thread starter(fill_prime_queue, 
-					ref(prime_queue), ref(settings));
+					ref(prime_queue), ref(settings), ref(running));
 	
-	// Wait until there is at least one thing in the queue
-	while(prime_queue.empty()){
-		this_thread::yield();
-	}
+	long long largest_queue_size = 1;
 	
-	while(!prime_queue.empty()){
-		const auto prime_state = prime_queue.front();
-		prime_queue.pop();
+	while(running || !prime_queue.empty()){
 		
-		cout << prime_state << endl;
+		// Wait until there is at least one thing in the queue
+		while(prime_queue.empty()){
+			//this_thread::yield();
+		}
+		
+		auto& next = prime_queue.front();
+		
+		try{
+			const auto res = next.get();
+			
+			cout << res << endl;
+				
+			prime_queue.pop();
+		}catch(const future_error& fut_err){
+			cerr << "[Main] Future error: " << fut_err.what() << endl;
+		}catch(const exception& e){
+			cerr << "[Main] Error: " << e.what() << endl;
+		}
+		
+		if(settings.debug_mode){
+			cout << prime_queue.size() << endl;
+		}
+		
+		largest_queue_size = std::max<long long>(prime_queue.size(), largest_queue_size);
 	}
 	
 	starter.join();
+
+	if(settings.debug_mode && !settings.single_mode){
+		cout << "Largest queue size: " << largest_queue_size << endl;
+	}
 }
