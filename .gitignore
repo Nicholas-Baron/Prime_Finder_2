@@ -33,10 +33,6 @@
 
 bin/
 
-\.clang-tidy
-
-lint\.sh
-
 lint\.txt
 
 primes\.txt
