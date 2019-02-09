@@ -4,15 +4,30 @@
 #include "prime.hpp"
 
 #include <iostream>	// cin, cout
+#include <sstream>	// stringstream
 
 struct Settings{
 	prime_t range_end;
-	bool debug_mode = false;
+	bool debug_mode = false, single_mode = false;
 };
 
 namespace std{
+
+	inline std::string to_string(bool val){
+		return (val?"true":"false");
+	}
+
 	inline std::string to_string(const Settings& rhs){
-		return "Settings: " + std::to_string(rhs.range_end);
+		std::stringstream stream;
+		stream << "Settings( " << rhs.range_end;
+		if(rhs.debug_mode){
+			stream << " | Debug";
+		}
+		if(rhs.single_mode){
+			stream << " | Single ";
+		}
+		stream << " )";
+		return stream.str();
 	}
 }
 

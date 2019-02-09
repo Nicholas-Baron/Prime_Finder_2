@@ -7,3 +7,5 @@ If it is less than 4, the user will be asked to input an integer greater than 4.
 ## `-v` or `-d`
 The verbose and debug mode are the same. 
 Using either will output additional information about the internal state of the program.
+## `-s`
+Single mode only checks the number inputed, not the range from 2 to the number. 

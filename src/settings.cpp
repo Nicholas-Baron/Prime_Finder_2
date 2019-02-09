@@ -9,7 +9,7 @@ Settings parse_settings(int arg_count, const char** args){
 
 	using std::cout; using std::endl;
 	long long range_end = 0;
-	bool debug = false;
+	Settings toRet;
 
 	//Read all user inputed arguments
 	for(int i = 0; i < arg_count; i++){
@@ -21,15 +21,17 @@ Settings parse_settings(int arg_count, const char** args){
 		if(isdigit(option[0])){
 			range_end = atoi(option);
 		}else if(option[0] == '-'){
-			if(strcmp(option, "-v") == 0 || strcmp(option, "-d") == 0){
-				debug = true;
+			if(strcmp(option, "-v") == 0 || strcmp(option, "-d") == 0) {
+				toRet.debug_mode = true;
+			} else if(strcmp(option, "-s") == 0) {
+				toRet.single_mode = true;
 			} else {
 				cout << "Option " << option << " is not supported!" << endl;
 			}	
 		}
 	}
 	
-	if(debug){
+	if(toRet.debug_mode){
 		
 		for(int i = 0; i < arg_count; i++){
 			cout << std::to_string(i) << ':' << args[i] << endl;
@@ -56,6 +58,7 @@ Settings parse_settings(int arg_count, const char** args){
 	
 	// Be sure that we do not walk backwards
 	assert(range_end > 0);
+	toRet.range_end = static_cast<prime_t>(range_end);
 	
-	return Settings{static_cast<prime_t>(range_end), debug};
+	return toRet;
 }

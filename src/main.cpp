@@ -1,7 +1,9 @@
 #include "prime.hpp"
 #include "settings.hpp"
+#include "starter.hpp"
 
 #include <iostream>	// cout
+#include <queue>
 
 int main(int arg_count, const char** args){
 
@@ -11,6 +13,13 @@ int main(int arg_count, const char** args){
 		std::cout << settings << std::endl;
 	}
 	
-	std::cout << is_prime(settings.range_end) << std::endl;
+	std::queue<primality_t> prime_queue;
+	fill_prime_queue(prime_queue, settings);
 	
+	while(!prime_queue.empty()){
+		const auto prime_state = prime_queue.front();
+		prime_queue.pop();
+		
+		std::cout << prime_state << std::endl;
+	}
 }
