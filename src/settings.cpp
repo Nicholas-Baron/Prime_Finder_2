@@ -1,6 +1,8 @@
 #include "settings.hpp"
 
-#include <cassert>	// assert
+#include "assert.hpp"
+
+//#include <cassert>	// assert
 #include <cctype>	// isdigit
 #include <cstdlib>	// atoi, abs
 #include <cstring>	// strcmp
@@ -39,7 +41,7 @@ Settings parse_settings(int arg_count, const char** args){
 		
 		// If the first character of an argument is a number, 
 		// use it as the end of the scan range 
-		if(isdigit(option[0])){
+		if(isdigit(option[0]) != 0){
 			range_end = atoi(option);
 		// If the first character is a dash, it is an option.
 		}else if(option[0] == '-'){

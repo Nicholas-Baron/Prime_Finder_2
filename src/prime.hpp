@@ -8,7 +8,7 @@ using prime_t = unsigned long long;
 
 using primality_t = std::pair<prime_t, bool>;
 
-primality_t is_prime(const prime_t val);
+primality_t is_prime(prime_t val);
 
 namespace std{
 	inline std::string to_string(const primality_t& rhs){

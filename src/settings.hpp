@@ -7,7 +7,7 @@
 #include <sstream>	// stringstream
 
 struct Settings{
-	prime_t range_end;
+	prime_t range_end = 0;
 	bool debug_mode = false, 
 	single_mode = false, 
 	large_queue = false,
