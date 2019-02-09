@@ -12,13 +12,13 @@ long long user_input(){
 		
 	cout << "Enter the largest number that will be checked: " << flush;	
 	cin.ignore();
-	cin >> range_end;
+	cin >> toRet;
 
-	while(!cin || range_end <= 3){
+	while(!cin || toRet <= 3){
 		cout << "Please enter a positive integer greater than 3: ";
 		cin.clear();
 		cin.ignore(256, '\n');
-		cin >> range_end;
+		cin >> toRet;
 	}
 	
 	return toRet;
