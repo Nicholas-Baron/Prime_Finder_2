@@ -38,3 +38,5 @@ bin/
 lint\.sh
 
 lint\.txt
+
+primes\.txt
