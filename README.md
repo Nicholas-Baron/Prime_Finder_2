@@ -13,3 +13,10 @@ Single mode only checks the number inputed, not the range from 2 to the number.
 Prints out at the end the largest size that the queue was.
 ## `-p`
 Prints out only the prime numbers.
+## `-prog##`
+Prints out the percent to completion. 
+The optional `##` is the amount (expressed as a decimal number) at which it will print.
+### `-prog10`
+Print at every 10% (0, 10, 20, 30, ... 100)
+## `-t`
+Show the internal recorded time that it took to finish the main loop.

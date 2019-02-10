@@ -1,11 +1,10 @@
 #include "settings.hpp"
 
 #include "assert.hpp"
+#include <string>	// string::npos
 
-//#include <cassert>	// assert
 #include <cctype>	// isdigit
-#include <cstdlib>	// atoi, abs
-#include <cstring>	// strcmp
+#include <cstdlib>	// atoi
 
 long long user_input(){
 	long long toRet = 0;
@@ -28,7 +27,7 @@ long long user_input(){
 
 Settings parse_settings(int arg_count, const char** args){
 
-	using std::cout; using std::endl;
+	using std::cout; using std::endl; using std::string;
 	
 	// This variable is used to prevent overflows
 	long long range_end = 0;
@@ -45,17 +44,24 @@ Settings parse_settings(int arg_count, const char** args){
 			range_end = atoi(option);
 		// If the first character is a dash, it is an option.
 		}else if(option[0] == '-'){
-			if(strcmp(option, "-v") == 0 || strcmp(option, "-d") == 0) {
-				toRet.debug_mode = true;
-			} else if(strcmp(option, "-s") == 0) {
-				toRet.single_mode = true;
-			} else if(strcmp(option, "-lq") == 0){
-				toRet.large_queue = true;
-			} else if(strcmp(option, "-p") == 0){
-				toRet.only_primes = true;
-			} else {
-				cout << "Option " << option << " is not supported!" << endl;
-			}	
+			
+			string opt_line(option);
+			if(opt_line == "-v" || opt_line == "-d"){ toRet.debug_mode = true; }
+			else if(opt_line == "-lq"){ toRet.large_queue = true; }
+			else if(opt_line.find("-prog") == 0){ 
+				toRet.progress_print = true; 
+				
+				auto number_pos = opt_line.find_first_of("0123456789");
+				if(number_pos != string::npos){
+					toRet.prog_percent = stoi(opt_line.substr(number_pos));
+				}
+			} else if(opt_line == "-p"){ 
+				toRet.only_primes = true; 
+			} else if(opt_line == "-t") {
+				toRet.time_loop = true;
+			} else { 
+				cout << "Option " << opt_line << " is not supported!" << endl;
+			}
 		}
 	}
 	
@@ -66,6 +72,10 @@ Settings parse_settings(int arg_count, const char** args){
 		}
 	
 		cout << range_end << endl;
+		
+		if(toRet.progress_print){
+			cout << "Print at every " << toRet.prog_percent << '%' << endl;
+		}
 	}
 	
 	if(toRet.large_queue && toRet.single_mode){

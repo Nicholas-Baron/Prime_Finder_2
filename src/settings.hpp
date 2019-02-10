@@ -8,10 +8,15 @@
 
 struct Settings{
 	prime_t range_end = 0;
+	
+	int prog_percent = 1;
+	
 	bool debug_mode = false, 
 	single_mode = false, 
 	large_queue = false,
-	only_primes = false;
+	only_primes = false,
+	progress_print = false,
+	time_loop = false;
 };
 
 namespace std{
@@ -35,7 +40,12 @@ namespace std{
 		if(rhs.only_primes){
 			stream << " | Print Only Primes";
 		}
-		
+		if(rhs.progress_print){
+			stream << " | Print Progress @ " << rhs.prog_percent << '%';
+		}
+		if(rhs.time_loop){
+			stream << " | Time Main Loop";
+		}
 		stream << " )";
 		return stream.str();
 	}
