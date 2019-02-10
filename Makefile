@@ -1,6 +1,7 @@
 
 all: prime.o settings.o starter.o
 	g++ -Wall src/main.cpp starter.o settings.o prime.o -lpthread -o bin/primes
+	rm *.o
 		
 prime.o:
 	g++ -c -Wall src/prime.cpp
