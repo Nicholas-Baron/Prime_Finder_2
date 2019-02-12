@@ -29,7 +29,7 @@ Settings parse_settings(int arg_count, const char** args){
 
 	using std::cout; using std::endl; using std::string;
 	
-	// This variable is used to prevent overflows
+	// This signed variable is used to prevent overflows
 	long long range_end = 0;
 	Settings toRet;
 
@@ -45,6 +45,9 @@ Settings parse_settings(int arg_count, const char** args){
 		// If the first character is a dash, it is an option.
 		}else if(option[0] == '-'){
 			
+			// Formating the data as a std::string takes O(n) time.
+			// strcmp also takes linear time.
+			// Readability is therefore more decisive here.
 			string opt_line(option);
 			if(opt_line == "-v" || opt_line == "-d"){ toRet.debug_mode = true; }
 			else if(opt_line == "-lq"){ toRet.large_queue = true; }
@@ -65,6 +68,7 @@ Settings parse_settings(int arg_count, const char** args){
 		}
 	}
 	
+	// Print out debug data (all command line inputs, the parsed range end)
 	if(toRet.debug_mode){
 		
 		for(int i = 0; i < arg_count; i++){
@@ -78,16 +82,20 @@ Settings parse_settings(int arg_count, const char** args){
 		}
 	}
 	
+	// These options conflict. 
+	// If only one person gets in line for something,
+	// that line could only have been one person long.
 	if(toRet.large_queue && toRet.single_mode){
 		cout << "Will not print largest size as it will be 1." << endl;
 	}
 	
 	// Any range smaller than 4 is not worth the program checking
+	// Ask the user to be sure of the real range.
 	if(range_end <= 3){
 		range_end = user_input();
 	}
 	
-	// Be sure that we do not walk backwards
+	// Be sure that we actually have a good range and cast to the correct type.
 	assert(range_end > 0);
 	toRet.range_end = static_cast<prime_t>(range_end);
 	

@@ -4,10 +4,12 @@ primality_t is_prime(const prime_t val){
 
 	using std::make_pair;
 
+	// This lambda is a helper to make the code more expressive.
 	const auto prime_pair = [val](bool primal) -> primality_t {
 		return make_pair(val, primal);
 	};
 	
+	// This macro simplifies the typing for a return statement in this function.
 #define ret(x) return prime_pair(x)
 
 	// The prime numbers smaller than 15 are as follows:
@@ -25,16 +27,19 @@ primality_t is_prime(const prime_t val){
 	
 	// Common multiples: 2, 3, 5 
 	// The last digit of a number divisible by 5 is either 0 or 5
+	// NOTE: The assembly generated for % 3 and % 5 are unoptimal.
 	if(val % 2 == 0 || val % 3 == 0 || val % 10 == 5){
 		ret(false);
 	}
 	
+	// Checks every odd number upto the lowest possible option 
+	// from the if statement
+	// NOTE: The % i causes interesting assembly.
 	for(prime_t i = 7; i <= val / 5; i += 2){
 		if(val % i == 0){ ret(false); }
 	}
 	
 	ret(true);
 	
-#undef ret
 }
-
+#undef ret

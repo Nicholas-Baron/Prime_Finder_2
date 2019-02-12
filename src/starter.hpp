@@ -8,6 +8,8 @@
 #include <future>
 #include <queue>
 
+// This function runs in the second thread 
+// and fills the queue with threads that process potential prime numbers
 void fill_prime_queue(std::queue<std::future<primality_t>>& results, 
 						const Settings& settings, std::atomic<bool>& running);
 
