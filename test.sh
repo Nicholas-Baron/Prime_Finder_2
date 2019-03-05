@@ -4,7 +4,7 @@
 
 make clear
 
-make -j
+make -j 2
 
 make clean
 

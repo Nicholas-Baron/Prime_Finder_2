@@ -62,6 +62,8 @@ Settings parse_settings(int arg_count, const char** args){
 				toRet.only_primes = true; 
 			} else if(opt_line == "-t") {
 				toRet.time_loop = true;
+			} else if(opt_line == "-s") {
+				toRet.single_mode = true;
 			} else { 
 				cout << "Option " << opt_line << " is not supported!" << endl;
 			}
