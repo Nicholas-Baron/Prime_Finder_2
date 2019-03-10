@@ -36,3 +36,7 @@ bin/
 lint\.txt
 
 primes\.txt
+
+lint/
+
+src/\.clang-tidy
