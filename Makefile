@@ -1,16 +1,19 @@
 
 all: prime.o settings.o starter.o
-	g++ -Wall src/main.cpp starter.o settings.o prime.o -lpthread -o bin/primes
+	g++ -Wall -Wextra src/main.cpp starter.o settings.o prime.o -lpthread -o bin/primes
 	rm *.o
 	
 prime.o:
-	g++ -c -Wall src/prime.cpp
+	g++ -c -Wall -Wextra src/prime.cpp
 	
 settings.o:
-	g++ -c -Wall src/settings.cpp
+	g++ -c -Wall -Wextra src/settings.cpp
 
 starter.o:
-	g++ -c -Wall src/starter.cpp -lpthread
+	g++ -c -Wall -Wextra src/starter.cpp -lpthread
+
+optimize:
+	g++ -o bin/optimized -Wall -Wextra -march=native -O3 src/*.cpp -lpthread
 	
 # Requires its own command for the -g option
 debug:

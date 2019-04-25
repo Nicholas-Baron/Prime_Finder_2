@@ -40,3 +40,7 @@ primes\.txt
 lint/
 
 src/\.clang-tidy
+
+normal\.txt
+
+optimized\.txt
