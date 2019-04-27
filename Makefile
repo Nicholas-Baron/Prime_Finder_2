@@ -1,10 +1,7 @@
 
-all: prime.o settings.o starter.o
-	g++ -Wall -Wextra src/main.cpp starter.o settings.o prime.o -lpthread -o bin/primes
+all: settings.o starter.o
+	g++ -Wall -Wextra src/main.cpp starter.o settings.o -lpthread -o bin/primes
 	rm *.o
-	
-prime.o:
-	g++ -c -Wall -Wextra src/prime.cpp
 	
 settings.o:
 	g++ -c -Wall -Wextra src/settings.cpp
@@ -17,7 +14,6 @@ optimize:
 	
 # Requires its own command for the -g option
 debug:
-	g++ -c -g -Wall src/prime.cpp
 	g++ -c -g -Wall src/settings.cpp
 	g++ -c -g -Wall src/starter.cpp -lpthread
 	g++ -g -Wall src/main.cpp starter.o settings.o prime.o -lpthread -o bin/primes
